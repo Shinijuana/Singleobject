@@ -31,7 +31,7 @@
        background-repeat: no-repeat;
        background-size: 20px 20px;
        background-position: 12px 50%;
-       background-color: #00d5ca;
+       background-color: #fff;
        position: absolute;
        left: 50%;
        transform: translateX(-50%);
@@ -40,7 +40,7 @@
        padding: 0px 16px 0px 40px;
        font-family: Roboto Regular, Helvetica Neue, sans-serif;
        font-size: 14px;
-       color: #0076E7;
+       color: #0000FF;
        height: 36px;
        line-height: 36px;
        border-radius: 5px;
@@ -56,7 +56,7 @@
      }
  
      #ar-button:focus-visible {
-       outline: 1px solid #4285f4;
+       outline: 1px solid #fff;
      }
  
      @keyframes circle {
@@ -110,31 +110,34 @@
     text-align: center;
     overflow: hidden;
     position: absolute;
-    bottom: 16px;
-  }
+    bottom: 32px;  /* Alza i bottoni da terra */
+    left: 50%;
+    transform: translateX(-50%);  /* Centra i bottoni orizzontalmente */
+}
 
-  .slides {
+.slides {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-  }
+    justify-content: center;  /* Centra gli elementi orizzontalmente */
+}
 
-  .slide {
+.slide {
     scroll-snap-align: start;
     flex-shrink: 0;
-    width: 100px;
-    height: 100px;
+    width: 70px;   /* Rimpicciolisci la larghezza */
+    height: 70px;  /* Rimpicciolisci l'altezza */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #fff;
-    margin-right: 10px;
+    margin-right: 8px;  /* Riduci lo spazio tra i bottoni */
     border-radius: 10px;
     border: none;
     display: flex;
-  }
+}
 
   .slide.selected {
     border: 2px solid #4285f4;
@@ -148,11 +151,7 @@
     outline: 1px solid #4285f4;
   }
 
-  .demo model-viewer {
-    width: 80%;
-    height: 500px;
-    background-color: #eee;
-  }
+  
 
 </style>
 </head>
@@ -166,7 +165,6 @@
                 camera-controls 
                 touch-action="pan-y" 
                 alt="A 3D model carousel" 
-                autoplay 
                 ar-scale="auto">
   
     <button slot="ar-button" id="ar-button">
