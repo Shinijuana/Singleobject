@@ -9,7 +9,7 @@
 
 <body>
   <model-viewer id="modelViewer" src="assets/Brepciano.glb" poster="posters/sedia%201.png" 
-                shadow-intensity="1" camera-controls touch-action="pan-y" alt="A 3D model carousel">
+                shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model carousel">
   
     <button slot="ar-button" id="ar-button">
       View in your space
@@ -35,6 +35,7 @@
   <script type="module">
     const modelViewer = document.querySelector("model-viewer");
 
+    // Funzione per cambiare il modello 3D
     window.switchSrc = (element, name) => {
       let glbModel = '';
       let posterImage = '';
@@ -49,10 +50,7 @@
 
       modelViewer.src = `assets/${glbModel}`;
       modelViewer.poster = `posters/${posterImage}`;
-
-      // Forza il ricaricamento del modello
-      modelViewer.reload();
-
+      
       // Cambia lo stato del bottone selezionato
       const slides = document.querySelectorAll(".slide");
       slides.forEach((el) => { el.classList.remove("selected"); });
@@ -62,7 +60,7 @@
   </script>
 
   <style>
-    /* Styling base */
+    /* Base model-viewer styling */
     model-viewer {
       background-color: #eee;
       width: 100%;
@@ -70,6 +68,70 @@
       margin-bottom: 20px;
     }
 
+    /* AR Button styling */
+    #ar-button {
+      background-image: url('assets/ic_view_in_ar_new_googblue_48dp.png');
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      background-position: 12px 50%;
+      background-color: #fff;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      bottom: 132px;
+      padding: 0px 16px 0px 40px;
+      font-family: Roboto Regular, Helvetica Neue, sans-serif;
+      font-size: 14px;
+      color: #4285f4;
+      height: 36px;
+      line-height: 36px;
+      border-radius: 18px;
+      border: 1px solid #DADCE0;
+    }
+
+    #ar-button:active {
+      background-color: #E8EAED;
+    }
+
+    #ar-button:focus {
+      outline: none;
+    }
+
+    #ar-button:focus-visible {
+      outline: 1px solid #4285f4;
+    }
+
+    /* Styling per il prompt AR */
+    model-viewer > #ar-prompt {
+      position: absolute;
+      left: 50%;
+      bottom: 175px;
+      animation: elongate 2s infinite ease-in-out alternate;
+      display: none;
+    }
+
+    model-viewer[ar-status="session-started"] > #ar-prompt {
+      display: block;
+    }
+
+    model-viewer > #ar-prompt > img {
+      animation: circle 4s linear infinite;
+    }
+
+    model-viewer > #ar-failure {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 175px;
+      display: none;
+    }
+
+    model-viewer[ar-tracking="not-tracking"] > #ar-failure {
+      display: block;
+    }
+
+    /* Styling della slider con immagini */
     .button-container {
       display: flex;
       justify-content: center;
@@ -93,6 +155,15 @@
     .slide.selected {
       border: 2px solid #4285f4;
     }
+
+    .slide:focus {
+      outline: none;
+    }
+
+    .slide:focus-visible {
+      outline: 1px solid #4285f4;
+    }
+
   </style>
 </body>
 
