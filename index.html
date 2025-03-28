@@ -8,9 +8,8 @@
 </head>
 
 <body>
-  <!-- Tag model-viewer configurato per AR -->
   <model-viewer id="modelViewer" src="assets/Brepciano.glb" poster="posters/sedia%201.png" 
-                shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model carousel">
+                shadow-intensity="1" camera-controls touch-action="pan-y" alt="A 3D model carousel">
   
     <button slot="ar-button" id="ar-button">
       View in your space
@@ -26,7 +25,6 @@
 
   </model-viewer>
 
-  <!-- I bottoni per cambiare i modelli -->
   <div class="button-container">
     <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/sedia%201.png');">
     </button>
@@ -37,12 +35,10 @@
   <script type="module">
     const modelViewer = document.querySelector("model-viewer");
 
-    // Funzione per cambiare modello e poster
     window.switchSrc = (element, name) => {
       let glbModel = '';
       let posterImage = '';
 
-      // Determina quale modello caricare
       if (name === 'Brepciano') {
         glbModel = 'Brepciano.glb';
         posterImage = 'sedia%201.png';
@@ -51,11 +47,10 @@
         posterImage = 'sedia%203.png';
       }
 
-      // Cambia il modello e il poster
       modelViewer.src = `assets/${glbModel}`;
       modelViewer.poster = `posters/${posterImage}`;
 
-      // Ricarica il modello per forzare il caricamento
+      // Forza il ricaricamento del modello
       modelViewer.reload();
 
       // Cambia lo stato del bottone selezionato
