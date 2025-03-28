@@ -8,68 +8,60 @@
 </head>
 
 <body>
-  <model-viewer src="../../assets/ShopifyModels/Chair.glb" poster="../../assets/ShopifyModels/Chair.webp" 
-                shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model carousel">
+  <model-viewer id="modelViewer" src="assets/Brepciano.glb" poster="posters/sedia%201.png" 
+                shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model viewer">
   
     <button slot="ar-button" id="ar-button">
       View in your space
     </button>
 
     <div id="ar-prompt">
-      <img src="../../assets/hand.png" alt="AR Prompt">
+      <img src="assets/hand.png" alt="AR Prompt">
     </div>
 
     <button id="ar-failure">
       AR is not tracking!
     </button>
 
-    <div class="slider">
-      <div class="slides">
-        <button class="slide selected" onclick="switchSrc(this, 'Chair')" style="background-image: url('../../assets/ShopifyModels/Chair.webp');">
-        </button>
-        <button class="slide" onclick="switchSrc(this, 'Mixer')" style="background-image: url('../../assets/ShopifyModels/Mixer.webp');">
-        </button>
-        <button class="slide" onclick="switchSrc(this, 'GeoPlanter')" style="background-image: url('../../assets/ShopifyModels/GeoPlanter.webp');">
-        </button>
-        <button class="slide" onclick="switchSrc(this, 'ToyTrain')" style="background-image: url('../../assets/ShopifyModels/ToyTrain.webp');">
-        </button>
-        <button class="slide" onclick="switchSrc(this, 'Canoe')" style="background-image: url('../../assets/ShopifyModels/Canoe.webp');">
-        </button>
-      </div>
-    </div>
   </model-viewer>
+
+  <div class="button-container">
+    <button id="brepcianoButton" onclick="changeModel('Brepciano')">Brepciano</button>
+    <button id="pixelbluButton" onclick="changeModel('Pixelblu')">Pixelblu</button>
+  </div>
 
   <script type="module">
     const modelViewer = document.querySelector("model-viewer");
 
-    window.switchSrc = (element, name) => {
-      const base = "../../assets/ShopifyModels/" + name;
-      modelViewer.src = base + '.glb';
-      modelViewer.poster = base + '.webp';
-      const slides = document.querySelectorAll(".slide");
-      slides.forEach((element) => {element.classList.remove("selected");});
-      element.classList.add("selected");
+    window.changeModel = (modelName) => {
+      let glbModel = '';
+      let posterImage = '';
+
+      if (modelName === 'Brepciano') {
+        glbModel = 'Brepciano.glb';
+        posterImage = 'sedia%201.png';
+      } else if (modelName === 'Pixelblu') {
+        glbModel = 'pixelblu.glb';
+        posterImage = 'sedia%203.png';
+      }
+
+      // Update the model and poster
+      modelViewer.src = `assets/${glbModel}`;
+      modelViewer.poster = `posters/${posterImage}`;
     };
 
-    document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
-      // Prevent slider interactions from affecting the XR scene.
-      ev.preventDefault();
-    });
   </script>
 
   <style>
-    /* This keeps child nodes hidden while the element loads */
-    :not(:defined) > * {
-      display: none;
-    }
-
     model-viewer {
       background-color: #eee;
-      overflow-x: hidden;
+      width: 100%;
+      height: 500px;
+      margin-bottom: 20px;
     }
 
     #ar-button {
-      background-image: url(../../assets/ic_view_in_ar_new_googblue_48dp.png);
+      background-image: url('assets/ic_view_in_ar_new_googblue_48dp.png');
       background-repeat: no-repeat;
       background-size: 20px 20px;
       background-position: 12px 50%;
@@ -101,43 +93,7 @@
       outline: 1px solid #4285f4;
     }
 
-    @keyframes circle {
-      from {
-        transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg);
-      }
-
-      to {
-        transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg);
-      }
-    }
-
-    @keyframes elongate {
-      from {
-        transform: translateX(100px);
-      }
-
-      to {
-        transform: translateX(-100px);
-      }
-    }
-
-    model-viewer > #ar-prompt {
-      position: absolute;
-      left: 50%;
-      bottom: 175px;
-      animation: elongate 2s infinite ease-in-out alternate;
-      display: none;
-    }
-
-    model-viewer[ar-status="session-started"] > #ar-prompt {
-      display: block;
-    }
-
-    model-viewer > #ar-prompt > img {
-      animation: circle 4s linear infinite;
-    }
-
-    model-viewer > #ar-failure {
+    #ar-failure {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -149,49 +105,26 @@
       display: block;
     }
 
-    .slider {
-      width: 100%;
-      text-align: center;
-      overflow: hidden;
-      position: absolute;
-      bottom: 16px;
-    }
-
-    .slides {
+    .button-container {
       display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
     }
 
-    .slide {
-      scroll-snap-align: start;
-      flex-shrink: 0;
-      width: 100px;
-      height: 100px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: #fff;
-      margin-right: 10px;
-      border-radius: 10px;
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4285f4;
+      color: white;
       border: none;
-      display: flex;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
-    .slide.selected {
-      border: 2px solid #4285f4;
+    .button-container button:hover {
+      background-color: #357ae8;
     }
-
-    .slide:focus {
-      outline: none;
-    }
-
-    .slide:focus-visible {
-      outline: 1px solid #4285f4;
-    }
-
   </style>
 </body>
 
