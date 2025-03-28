@@ -9,7 +9,7 @@
    
 </head>
 <body>
-
+<!-- Cambiare i nomi degli assets e posters-->
   <model-viewer src="assets/Brepciano.glb" 
                 poster="posters/Brepciano.png" 
                 shadow-intensity="1" 
@@ -33,14 +33,15 @@
 
     <div class="slider">
       <div class="slides">
-        <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/Brepciano.png');">
+        <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/Brepciano.png');"> <!-- Cambiare il nome dopo "this" con il nome del modello che devi usare e posters-->
         </button>
-        <button class="slide" onclick="switchSrc(this, 'pixelblu')" style="background-image: url('posters/pixelblu.png');">
+        <button class="slide" onclick="switchSrc(this, 'pixelblu')" style="background-image: url('posters/pixelblu.png');"> <!-- Cambiare il nome dopo "this" con il nome del modello che devi usare e posters-->
         </button>
       </div>
     </div>
   </model-viewer>
 
+   <!-- Logica di Switch-->
   <script type="module">
     const modelViewer = document.querySelector("model-viewer");
 
