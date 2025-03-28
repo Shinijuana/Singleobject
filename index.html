@@ -9,7 +9,7 @@
 
 <body>
   <model-viewer id="modelViewer" src="assets/Brepciano.glb" poster="posters/sedia%201.png" 
-                shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model viewer">
+                shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model carousel">
   
     <button slot="ar-button" id="ar-button">
       View in your space
@@ -26,33 +26,41 @@
   </model-viewer>
 
   <div class="button-container">
-    <button id="brepcianoButton" onclick="changeModel('Brepciano')">Brepciano</button>
-    <button id="pixelbluButton" onclick="changeModel('Pixelblu')">Pixelblu</button>
+    <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/sedia%201.png');">
+    </button>
+    <button class="slide" onclick="switchSrc(this, 'Pixelblu')" style="background-image: url('posters/sedia%203.png');">
+    </button>
   </div>
 
   <script type="module">
     const modelViewer = document.querySelector("model-viewer");
 
-    window.changeModel = (modelName) => {
+    // Funzione per cambiare il modello 3D
+    window.switchSrc = (element, name) => {
       let glbModel = '';
       let posterImage = '';
 
-      if (modelName === 'Brepciano') {
+      if (name === 'Brepciano') {
         glbModel = 'Brepciano.glb';
         posterImage = 'sedia%201.png';
-      } else if (modelName === 'Pixelblu') {
+      } else if (name === 'Pixelblu') {
         glbModel = 'pixelblu.glb';
         posterImage = 'sedia%203.png';
       }
 
-      // Update the model and poster
       modelViewer.src = `assets/${glbModel}`;
       modelViewer.poster = `posters/${posterImage}`;
+      
+      // Cambia lo stato del bottone selezionato
+      const slides = document.querySelectorAll(".slide");
+      slides.forEach((el) => { el.classList.remove("selected"); });
+      element.classList.add("selected");
     };
 
   </script>
 
   <style>
+    /* Base model-viewer styling */
     model-viewer {
       background-color: #eee;
       width: 100%;
@@ -60,6 +68,7 @@
       margin-bottom: 20px;
     }
 
+    /* AR Button styling */
     #ar-button {
       background-image: url('assets/ic_view_in_ar_new_googblue_48dp.png');
       background-repeat: no-repeat;
@@ -93,7 +102,24 @@
       outline: 1px solid #4285f4;
     }
 
-    #ar-failure {
+    /* Styling per il prompt AR */
+    model-viewer > #ar-prompt {
+      position: absolute;
+      left: 50%;
+      bottom: 175px;
+      animation: elongate 2s infinite ease-in-out alternate;
+      display: none;
+    }
+
+    model-viewer[ar-status="session-started"] > #ar-prompt {
+      display: block;
+    }
+
+    model-viewer > #ar-prompt > img {
+      animation: circle 4s linear infinite;
+    }
+
+    model-viewer > #ar-failure {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -105,6 +131,7 @@
       display: block;
     }
 
+    /* Styling della slider con immagini */
     .button-container {
       display: flex;
       justify-content: center;
@@ -112,19 +139,31 @@
       margin-top: 20px;
     }
 
-    .button-container button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4285f4;
-      color: white;
+    .slide {
+      width: 100px;
+      height: 100px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #fff;
+      border-radius: 10px;
       border: none;
-      border-radius: 5px;
+      display: flex;
       cursor: pointer;
     }
 
-    .button-container button:hover {
-      background-color: #357ae8;
+    .slide.selected {
+      border: 2px solid #4285f4;
     }
+
+    .slide:focus {
+      outline: none;
+    }
+
+    .slide:focus-visible {
+      outline: 1px solid #4285f4;
+    }
+
   </style>
 </body>
 
