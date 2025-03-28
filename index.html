@@ -26,29 +26,27 @@ model-viewer {
     object-fit: contain;
 }
 
-/* Bottone AR - Responsive */
+/* Bottone AR - Posizionamento responsive, dimensione fissa */
 #ar-button {
     background-image: url(assets/ic_view_in_ar_new_googblue_48dp.png);
     background-repeat: no-repeat;
-    background-size: 2vw; /* Icona adattabile */
-    background-position: 1vw 50%;
+    background-size: 20px;
+    background-position: 12px 50%;
     background-color: #fff;
 
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 15vh; /* Posizionamento relativo */
+    bottom: 20vh; /* Alzato leggermente rispetto a prima */
 
-    width: 20vw;  /* Adattabile alla larghezza dello schermo */
-    height: 5vh;  /* Adattabile all'altezza dello schermo */
-    min-width: 120px;
-    max-width: 200px;
+    width: 160px;
+    height: 40px;
 
-    padding-left: 3vw;
+    padding-left: 40px;
     font-family: Roboto, Helvetica Neue, sans-serif;
-    font-size: 2vw;
+    font-size: 14px;
     color: #0000FF;
-    line-height: 5vh;
+    line-height: 40px;
     border-radius: 5px;
     border: 1px solid #DADCE0;
 }
@@ -87,7 +85,7 @@ model-viewer {
 model-viewer > #ar-prompt {
     position: absolute;
     left: 50%;
-    bottom: 18vh;
+    bottom: 22vh; /* Alzato */
     animation: elongate 2s infinite ease-in-out alternate;
     display: none;
 }
@@ -104,7 +102,7 @@ model-viewer > #ar-failure {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 18vh;
+    bottom: 22vh; /* Alzato */
     display: none;
 }
 
@@ -112,13 +110,13 @@ model-viewer[ar-tracking="not-tracking"] > #ar-failure {
     display: block;
 }
 
-/* Slider - Responsive */
+/* Slider - Posizionamento responsive, dimensione fissa */
 .slider {
     width: 100%;
     text-align: center;
     overflow: hidden;
     position: absolute;
-    bottom: 8vh; /* Posizionamento relativo */
+    bottom: 12vh; /* Alzato rispetto a prima */
     left: 50%;
     transform: translateX(-50%);
 }
@@ -132,21 +130,19 @@ model-viewer[ar-tracking="not-tracking"] > #ar-failure {
     justify-content: center;
 }
 
-/* Bottoni per cambiare modello */
+/* Bottoni per cambiare modello - Dimensione fissa */
 .slide {
     scroll-snap-align: start;
     flex-shrink: 0;
-    width: 12vw;   /* Adattabile alla larghezza dello schermo */
-    height: 12vw;  /* Adattabile all'altezza dello schermo */
-    max-width: 80px;  /* Limite massimo per non essere troppo grandi */
-    max-height: 80px;
-    
+    width: 70px;
+    height: 70px;
+
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #fff;
 
-    margin-right: 2vw; /* Spazio tra i bottoni */
+    margin-right: 10px; /* Spazio tra i bottoni */
     border-radius: 10px;
     border: none;
     display: flex;
