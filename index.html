@@ -7,112 +7,120 @@
    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
    <style>
-     :not(:defined) > * {
-       display: none;
-     }
- 
-      html, body {
-         margin: 0;
-         padding: 0;
-         width: 100%;
-         height: 100%;
-         overflow: hidden;
-       }
-     
-     model-viewer {
-       background-color: #fff;
-       width: 100%;
-       height: 100vh;
-       object-fit: contain; /* Mantieni il rapporto di aspetto del modello */
-     }
- 
-     #ar-button {
-       background-image: url(assets/ic_view_in_ar_new_googblue_48dp.png);
-       background-repeat: no-repeat;
-       background-size: 20px 20px;
-       background-position: 12px 50%;
-       background-color: #fff;
-       position: absolute;
-       left: 50%;
-       transform: translateX(-50%);
-       white-space: nowrap;
-       bottom: 150px;
-       padding: 0px 16px 0px 40px;
-       font-family: Roboto Regular, Helvetica Neue, sans-serif;
-       font-size: 14px;
-       color: #0000FF;
-       height: 36px;
-       line-height: 36px;
-       border-radius: 5px;
-       border: 1px solid #DADCE0;
-     }
- 
-     #ar-button:active {
-       background-color: #E8EAED;
-     }
- 
-     #ar-button:focus {
-       outline: none;
-     }
- 
-     #ar-button:focus-visible {
-       outline: 1px solid #fff;
-     }
- 
-     @keyframes circle {
-       from {
-         transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg);
-       }
-       to {
-         transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg);
-       }
-     }
- 
-     @keyframes elongate {
-       from {
-         transform: translateX(100px);
-       }
-       to {
-         transform: translateX(-100px);
-       }
-     }
- 
-     model-viewer > #ar-prompt {
-       position: absolute;
-       left: 50%;
-       bottom: 175px;
-       animation: elongate 2s infinite ease-in-out alternate;
-       display: none;
-     }
- 
-     model-viewer[ar-status="session-started"] > #ar-prompt {
-       display: block;
-     }
- 
-     model-viewer > #ar-prompt > img {
-       animation: circle 4s linear infinite;
-     }
- 
-     model-viewer > #ar-failure {
-       position: absolute;
-       left: 50%;
-       transform: translateX(-50%);
-       bottom: 175px;
-       display: none;
-     }
- 
-     model-viewer[ar-tracking="not-tracking"] > #ar-failure {
-       display: block;
-     }
+    :not(:defined) > * {
+    display: none;
+}
 
-  .slider {
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+model-viewer {
+    background-color: #fff;
+    width: 100%;
+    height: 100vh;
+    object-fit: contain;
+}
+
+/* Bottone AR - Responsive */
+#ar-button {
+    background-image: url(assets/ic_view_in_ar_new_googblue_48dp.png);
+    background-repeat: no-repeat;
+    background-size: 2vw; /* Icona adattabile */
+    background-position: 1vw 50%;
+    background-color: #fff;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 15vh; /* Posizionamento relativo */
+
+    width: 20vw;  /* Adattabile alla larghezza dello schermo */
+    height: 5vh;  /* Adattabile all'altezza dello schermo */
+    min-width: 120px;
+    max-width: 200px;
+
+    padding-left: 3vw;
+    font-family: Roboto, Helvetica Neue, sans-serif;
+    font-size: 2vw;
+    color: #0000FF;
+    line-height: 5vh;
+    border-radius: 5px;
+    border: 1px solid #DADCE0;
+}
+
+#ar-button:active {
+    background-color: #E8EAED;
+}
+
+#ar-button:focus {
+    outline: none;
+}
+
+#ar-button:focus-visible {
+    outline: 1px solid #4285f4;
+}
+
+/* Effetti AR */
+@keyframes circle {
+    from {
+        transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg);
+    }
+    to {
+        transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg);
+    }
+}
+
+@keyframes elongate {
+    from {
+        transform: translateX(100px);
+    }
+    to {
+        transform: translateX(-100px);
+    }
+}
+
+model-viewer > #ar-prompt {
+    position: absolute;
+    left: 50%;
+    bottom: 18vh;
+    animation: elongate 2s infinite ease-in-out alternate;
+    display: none;
+}
+
+model-viewer[ar-status="session-started"] > #ar-prompt {
+    display: block;
+}
+
+model-viewer > #ar-prompt > img {
+    animation: circle 4s linear infinite;
+}
+
+model-viewer > #ar-failure {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 18vh;
+    display: none;
+}
+
+model-viewer[ar-tracking="not-tracking"] > #ar-failure {
+    display: block;
+}
+
+/* Slider - Responsive */
+.slider {
     width: 100%;
     text-align: center;
     overflow: hidden;
     position: absolute;
-    bottom: 60px;  /* Alza i bottoni da terra */
+    bottom: 8vh; /* Posizionamento relativo */
     left: 50%;
-    transform: translateX(-50%);  /* Centra i bottoni orizzontalmente */
+    transform: translateX(-50%);
 }
 
 .slides {
@@ -121,37 +129,40 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    justify-content: center;  /* Centra gli elementi orizzontalmente */
+    justify-content: center;
 }
 
+/* Bottoni per cambiare modello */
 .slide {
     scroll-snap-align: start;
     flex-shrink: 0;
-    width: 70px;   /* Rimpicciolisci la larghezza */
-    height: 70px;  /* Rimpicciolisci l'altezza */
+    width: 12vw;   /* Adattabile alla larghezza dello schermo */
+    height: 12vw;  /* Adattabile all'altezza dello schermo */
+    max-width: 80px;  /* Limite massimo per non essere troppo grandi */
+    max-height: 80px;
+    
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #fff;
-    margin-right: 8px;  /* Riduci lo spazio tra i bottoni */
+
+    margin-right: 2vw; /* Spazio tra i bottoni */
     border-radius: 10px;
     border: none;
     display: flex;
 }
 
-  .slide.selected {
+.slide.selected {
     border: 2px solid #4285f4;
-  }
+}
 
-  .slide:focus {
+.slide:focus {
     outline: none;
-  }
+}
 
-  .slide:focus-visible {
+.slide:focus-visible {
     outline: 1px solid #4285f4;
-  }
-
-  
+}
 
 </style>
 </head>
