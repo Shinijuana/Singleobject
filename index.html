@@ -1,6 +1,6 @@
 <!DOCTYPE html>
- <html lang="it">
- <head>
+<html lang="it">
+<head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
    <title>Sensitron AR</title>
@@ -21,10 +21,9 @@
      
      model-viewer {
        background-color: #fff;
-       overflow-x: hidden;
        width: 100%;
        height: 100vh;
-       object-fit: cover
+       object-fit: contain; /* Mantieni il rapporto di aspetto del modello */
      }
  
      #ar-button {
@@ -149,38 +148,48 @@
     outline: 1px solid #4285f4;
   }
 
-  .demo model-viewer{
-  width: 80%;
+  .demo model-viewer {
+    width: 80%;
     height: 500px;
     background-color: #eee;
   }
+
 </style>
 </head>
- <body>
+<body>
 
-<div class="demo">
-<model-viewer src="assets/Brepciano.glb" poster="posters/Brepciano.png" shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model carousel">
+
+  <model-viewer src="assets/Brepciano.glb" 
+                poster="posters/Brepciano.png" 
+                shadow-intensity="1" 
+                ar 
+                camera-controls 
+                touch-action="pan-y" 
+                alt="A 3D model carousel" 
+                autoplay 
+                ar-scale="auto">
   
-  <button slot="ar-button" id="ar-button">
-    View in your space
-  </button>
+    <button slot="ar-button" id="ar-button">
+      View in your space
+    </button>
 
-  <div id="ar-prompt">
-    <img src="assets/hand.png">
-  </div>
+    <div id="ar-prompt">
+      <img src="assets/hand.png">
+    </div>
 
-  <button id="ar-failure">
-    AR is not tracking!
-  </button>
+    <button id="ar-failure">
+      AR is not tracking!
+    </button>
 
-  <div class="slider">
-    <div class="slides">
-      <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/Brepciano.png');">
-
-      </button><button class="slide" onclick="switchSrc(this, 'pixelblu')" style="background-image: url('posters/pixelblu.png');">   
-    </button></div>
-  </div>
-</model-viewer>
+    <div class="slider">
+      <div class="slides">
+        <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/Brepciano.png');">
+        </button>
+        <button class="slide" onclick="switchSrc(this, 'pixelblu')" style="background-image: url('posters/pixelblu.png');">
+        </button>
+      </div>
+    </div>
+  </model-viewer>
 </div>
 
 <script type="module">
@@ -200,6 +209,6 @@
     ev.preventDefault();
   });
 </script>
- </body>
- </html>
 
+</body>
+</html>
