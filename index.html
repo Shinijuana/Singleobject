@@ -9,8 +9,7 @@
 </head>
 <body>
 <!-- Cambiare i nomi degli assets e posters-->
-  <model-viewer src="assets/Brepciano.glb" 
-                poster="posters/Brepciano.png" 
+  <model-viewer src="assets/faccinaglasses.glb" 
                 shadow-intensity="1" 
                 ar 
                 camera-controls 
@@ -29,35 +28,6 @@
     <button id="ar-failure">
       AR is not tracking!
     </button>
-
-    <div class="slider">
-      <div class="slides">
-        <button class="slide selected" onclick="switchSrc(this, 'Brepciano')" style="background-image: url('posters/Brepciano.png');"> <!-- Cambiare il nome dopo "this" con il nome del modello che devi usare e posters-->
-        </button>
-        <button class="slide" onclick="switchSrc(this, 'pixelblu')" style="background-image: url('posters/pixelblu.png');"> <!-- Cambiare il nome dopo "this" con il nome del modello che devi usare e posters-->
-        </button>
-         <button class="slide" onclick="switchSrc(this, 'redchair')" style="background-image: url('posters/redchair.png');"> <!-- Cambiare il nome dopo "this" con il nome del modello che devi usare e posters-->
-        </button>
-      </div>
-    </div>
-  </model-viewer>
-
-   <!-- Logica di Switch-->
-  <script type="module">
-    const modelViewer = document.querySelector("model-viewer");
-
-    window.switchSrc = (element, name) => {
-      const base = "assets/" + name;
-      modelViewer.src = base + '.glb';
-      modelViewer.poster = base + '.png';
-      document.querySelectorAll(".slide").forEach(btn => btn.classList.remove("selected"));
-      element.classList.add("selected");
-    };
-
-    document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
-      ev.preventDefault();
-    });
-  </script>
-
+     
 </body>
 </html>
